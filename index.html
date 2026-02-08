@@ -1,41 +1,162 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Para Helen 💖</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Un pequeño detalle para ti 💖</title>
+
+<style>
+body{
+    margin:0;
+    padding:0;
+    font-family:'Segoe UI', sans-serif;
+    background: linear-gradient(135deg,#ff758c,#ff7eb3,#fad0c4);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:white;
+    overflow:hidden;
+}
+
+.container{
+    max-width:500px;
+    padding:40px;
+    backdrop-filter: blur(12px);
+    background: rgba(255,255,255,0.15);
+    border-radius:25px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.3);
+    animation:fadeIn 2s ease;
+}
+
+h1{
+    font-size:28px;
+}
+
+p{
+    line-height:1.6;
+}
+
+button{
+    margin:10px;
+    padding:12px 25px;
+    border:none;
+    border-radius:30px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+#btnSi{
+    background:white;
+    color:#ff4b7d;
+}
+
+#btnNo{
+    background:#ff4b7d;
+    color:white;
+    position:relative;
+}
+
+button:hover{
+    transform:scale(1.08);
+}
+
+.hidden{
+    display:none;
+}
+
+.final{
+    font-size:20px;
+    font-weight:bold;
+    margin-top:20px;
+}
+
+.heart{
+    position:absolute;
+    color:white;
+    font-size:20px;
+    animation:float 6s linear infinite;
+}
+
+@keyframes float{
+    from{transform:translateY(100vh);}
+    to{transform:translateY(-10vh); opacity:0;}
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(30px);}
+    to{opacity:1; transform:translateY(0);}
+}
+</style>
 </head>
 <body>
 
 <div class="container">
     <h1>Hola Helen ✨</h1>
 
-    <p id="mensaje1">
-        Tal vez dices que hace mucho no sales con nadie…
+    <p id="texto">
+        Sé que dijiste que hace mucho no sales con nadie…
         y lo entiendo.
+        A veces uno se acostumbra a su tranquilidad.
     </p>
 
-    <button onclick="siguiente()">Seguir leyendo 💌</button>
+    <button onclick="continuar()">Seguir 💌</button>
 
-    <p id="mensaje2" class="hidden">
-        A veces uno se acostumbra a su paz,
-        pero también creo que las mejores historias
-        empiezan cuando alguien aparece sin hacer ruido…
-    </p>
+    <div id="pregunta" class="hidden">
+        <p>
+            No te prometo algo perfecto…
+            pero sí algo sincero 💖  
+            ¿Te gustaría salir conmigo?
+        </p>
+        <button id="btnSi" onclick="acepto()">Sí 💕</button>
+        <button id="btnNo" onmouseover="mover()">No 😅</button>
+    </div>
 
-    <p id="mensaje3" class="hidden">
-        No te escribo esto para presionarte,
-        solo porque me encantaría conocerte más.
-    </p>
-
-    <p id="final" class="hidden final">
-        No prometo algo perfecto,
-        pero sí algo sincero 💖
-        ¿Te gustaría salir conmigo?
-    </p>
+    <div id="respuestaFinal" class="hidden final">
+        Sabía que valía la pena intentarlo ✨  
+        Prometo hacer que esa salida sea especial 💖
+    </div>
 </div>
 
-<script src="script.js"></script>
+<audio autoplay loop>
+<source src="https://cdn.pixabay.com/audio/2022/10/30/audio_9467bfbfa1.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function continuar(){
+    document.getElementById("texto").innerHTML =
+    "Pero también creo que las mejores historias empiezan cuando alguien aparece sin hacer ruido... y solo quiere hacerte sonreír 😊";
+    
+    document.querySelector("button").style.display="none";
+    document.getElementById("pregunta").classList.remove("hidden");
+}
+
+function acepto(){
+    document.getElementById("pregunta").classList.add("hidden");
+    document.getElementById("respuestaFinal").classList.remove("hidden");
+    crearCorazones();
+}
+
+function mover(){
+    let btn = document.getElementById("btnNo");
+    btn.style.position = "absolute";
+    btn.style.left = Math.random()*80 + "%";
+    btn.style.top = Math.random()*80 + "%";
+}
+
+function crearCorazones(){
+    for(let i=0;i<40;i++){
+        let heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤";
+        heart.style.left = Math.random()*100 + "vw";
+        heart.style.animationDuration = (Math.random()*5 + 3) + "s";
+        document.body.appendChild(heart);
+    }
+}
+</script>
+
 </body>
 </html>
